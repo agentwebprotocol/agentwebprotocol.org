@@ -18,37 +18,56 @@ function CodeBlock() {
           <span className="text-text-muted">{"{"}</span>
           {"\n"}
           <span className="text-text-muted">{"  "}</span>
-          <span className="text-accent">{'"protocol"'}</span>
+          <span className="text-accent">{'"awp_version"'}</span>
           <span className="text-text-muted">: </span>
-          <span className="text-green">{'"awp/1.0"'}</span>
+          <span className="text-green">{'"0.1"'}</span>
           <span className="text-text-muted">,</span>
           {"\n"}
           <span className="text-text-muted">{"  "}</span>
-          <span className="text-accent">{'"agent_ready"'}</span>
+          <span className="text-accent">{'"domain"'}</span>
           <span className="text-text-muted">: </span>
-          <span className="text-green">true</span>
+          <span className="text-green">{'"example.com"'}</span>
           <span className="text-text-muted">,</span>
           {"\n"}
           <span className="text-text-muted">{"  "}</span>
-          <span className="text-accent">{'"capabilities"'}</span>
-          <span className="text-text-muted">{": {"}</span>
+          <span className="text-accent">{'"intent"'}</span>
+          <span className="text-text-muted">: </span>
+          <span className="text-green">{'"Online store with search and checkout"'}</span>
+          <span className="text-text-muted">,</span>
           {"\n"}
-          <span className="text-text-muted">{"    "}</span>
+          <span className="text-text-muted">{"  "}</span>
           <span className="text-accent">{'"actions"'}</span>
-          <span className="text-text-muted">: [</span>
+          <span className="text-text-muted">{": ["}</span>
+          {"\n"}
+          <span className="text-text-muted">{"    { "}</span>
+          <span className="text-accent">{'"id"'}</span>
+          <span className="text-text-muted">: </span>
           <span className="text-green">{'"search"'}</span>
           <span className="text-text-muted">, </span>
-          <span className="text-green">{'"book"'}</span>
-          <span className="text-text-muted">, </span>
-          <span className="text-green">{'"purchase"'}</span>
-          <span className="text-text-muted">],</span>
-          {"\n"}
-          <span className="text-text-muted">{"    "}</span>
-          <span className="text-accent">{'"auth"'}</span>
+          <span className="text-accent">{'"method"'}</span>
           <span className="text-text-muted">: </span>
-          <span className="text-green">{'"oauth2"'}</span>
+          <span className="text-green">{'"GET"'}</span>
+          <span className="text-text-muted">, </span>
+          <span className="text-accent">{'"endpoint"'}</span>
+          <span className="text-text-muted">: </span>
+          <span className="text-green">{'"\/api\/search"'}</span>
+          <span className="text-text-muted">{" },"}</span>
           {"\n"}
-          <span className="text-text-muted">{"  }"}</span>
+          <span className="text-text-muted">{"    { "}</span>
+          <span className="text-accent">{'"id"'}</span>
+          <span className="text-text-muted">: </span>
+          <span className="text-green">{'"purchase"'}</span>
+          <span className="text-text-muted">, </span>
+          <span className="text-accent">{'"method"'}</span>
+          <span className="text-text-muted">: </span>
+          <span className="text-green">{'"POST"'}</span>
+          <span className="text-text-muted">, </span>
+          <span className="text-accent">{'"endpoint"'}</span>
+          <span className="text-text-muted">: </span>
+          <span className="text-green">{'"\/api\/purchase"'}</span>
+          <span className="text-text-muted">{" }"}</span>
+          {"\n"}
+          <span className="text-text-muted">{"  ]"}</span>
           {"\n"}
           <span className="text-text-muted">{"}"}</span>
         </code>

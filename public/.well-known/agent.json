@@ -1,23 +1,21 @@
 {
-  "protocol": "awp/1.0",
-  "agent_ready": true,
+  "awp_version": "0.1",
+  "domain": "agentwebprotocol.org",
   "intent": "Agent Web Protocol standards documentation and specification",
-  "url": "https://agentwebprotocol.org",
-  "capabilities": {
-    "actions": [
-      {
-        "name": "get_spec",
-        "description": "Retrieve the current AWP specification in markdown format",
-        "method": "GET",
-        "endpoint": "/api/spec"
-      },
-      {
-        "name": "get_examples",
-        "description": "Retrieve example agent.json configurations",
-        "method": "GET",
-        "endpoint": "/api/examples"
-      }
-    ],
-    "auth": "none"
-  }
+  "actions": [
+    {
+      "id": "get_spec",
+      "description": "Retrieve the current AWP specification in markdown format",
+      "endpoint": "/api/spec",
+      "method": "GET",
+      "auth_required": false
+    },
+    {
+      "id": "get_examples",
+      "description": "Retrieve example agent.json configurations",
+      "endpoint": "/api/examples",
+      "method": "GET",
+      "auth_required": false
+    }
+  ]
 }

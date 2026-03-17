@@ -8,7 +8,7 @@ async function getSpec(): Promise<string> {
   );
 
   if (!res.ok) {
-    return "# Specification\n\nUnable to load the specification. Please view it directly on [GitHub](https://github.com/agentwebprotocol/spec/blob/main/SPEC.md).";
+    return "# Specification\n\nThe live specification could not be loaded. Please visit [GitHub](https://github.com/agentwebprotocol/spec/blob/main/SPEC.md) for the latest version.";
   }
 
   return res.text();
