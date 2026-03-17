@@ -1,0 +1,23 @@
+{
+  "protocol": "awp/1.0",
+  "agent_ready": true,
+  "intent": "Agent Web Protocol standards documentation and specification",
+  "url": "https://agentwebprotocol.org",
+  "capabilities": {
+    "actions": [
+      {
+        "name": "get_spec",
+        "description": "Retrieve the current AWP specification in markdown format",
+        "method": "GET",
+        "endpoint": "/api/spec"
+      },
+      {
+        "name": "get_examples",
+        "description": "Retrieve example agent.json configurations",
+        "method": "GET",
+        "endpoint": "/api/examples"
+      }
+    ],
+    "auth": "none"
+  }
+}
