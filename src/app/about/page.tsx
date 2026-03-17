@@ -104,22 +104,17 @@ export default function AboutPage() {
             </div>
           </a>
 
-          <a
-            href="https://injester.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-5 rounded-lg border border-border bg-bg-elevated hover:border-border-bright transition-colors block"
-          >
+          <div className="p-5 rounded-lg border border-border bg-bg-elevated">
             <div className="font-mono text-xs text-accent mb-2 tracking-wider uppercase">
               Middleware
             </div>
             <div className="text-sm text-text-primary font-medium mb-1">
-              Injester
+              Synthetic Generation
             </div>
             <div className="text-xs text-text-muted">
-              Auto-generate agent.json for any existing website
+              Middleware tools can generate a synthetic agent.json for any URL on demand
             </div>
-          </a>
+          </div>
 
           <div className="p-5 rounded-lg border border-border bg-bg-elevated">
             <div className="font-mono text-xs text-accent mb-2 tracking-wider uppercase">

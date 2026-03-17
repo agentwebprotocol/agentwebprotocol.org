@@ -29,14 +29,6 @@ export default function Footer() {
           >
             agent.json
           </a>
-          <a
-            href="https://injester.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-text-secondary transition-colors"
-          >
-            Injester
-          </a>
         </div>
       </div>
     </footer>

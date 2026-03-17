@@ -222,8 +222,8 @@ export default function Home() {
           />
           <Feature
             label="Middleware"
-            title="Injester layer"
-            description="Injester.com provides a middleware layer that can generate agent.json for existing websites automatically."
+            title="Synthetic generation"
+            description="Middleware tools can generate a synthetic agent.json for any URL on demand, bridging the gap for sites that haven't implemented the standard yet."
           />
           <Feature
             label="Open"
