@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# AI agents: see /agent.json for structured capabilities
+# LLMs: see /llms.txt for a summary, /llms-full.txt for the full spec
