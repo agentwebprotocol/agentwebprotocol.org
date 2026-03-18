@@ -238,9 +238,9 @@ export default function Home() {
             description="JSON schema-based format that's easy for agents to parse and for humans to write and review."
           />
           <Feature
-            label="Middleware"
-            title="Synthetic generation"
-            description="Middleware tools can generate a synthetic agent.json for any URL on demand, bridging the gap for sites that haven't implemented the standard yet."
+            label="Tooling"
+            title="CLI and editor support"
+            description="Generate with npx agent-json init, validate files, or add native support to Claude Code via the AWP MCP server."
           />
           <Feature
             label="Open"

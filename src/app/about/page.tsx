@@ -69,7 +69,7 @@ export default function AboutPage() {
           The Ecosystem
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
           <a
             href="https://github.com/agentwebprotocol/spec"
             target="_blank"
@@ -115,6 +115,40 @@ export default function AboutPage() {
               Middleware tools can generate a synthetic agent.json for any URL on demand
             </div>
           </div>
+
+          <a
+            href="https://npmjs.com/package/agent-json"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-lg border border-border bg-bg-elevated hover:border-border-bright transition-colors block"
+          >
+            <div className="font-mono text-xs text-accent mb-2 tracking-wider uppercase">
+              CLI
+            </div>
+            <div className="text-sm text-text-primary font-medium mb-1">
+              agent-json
+            </div>
+            <div className="text-xs text-text-muted">
+              Generate and validate agent.json from the command line
+            </div>
+          </a>
+
+          <a
+            href="https://npmjs.com/package/awp-mcp-server"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-lg border border-border bg-bg-elevated hover:border-border-bright transition-colors block"
+          >
+            <div className="font-mono text-xs text-accent mb-2 tracking-wider uppercase">
+              Claude Code
+            </div>
+            <div className="text-sm text-text-primary font-medium mb-1">
+              AWP MCP Server
+            </div>
+            <div className="text-xs text-text-muted">
+              Native AWP support for Claude Code and MCP-compatible AI tools
+            </div>
+          </a>
 
           <div className="p-5 rounded-lg border border-border bg-bg-elevated">
             <div className="font-mono text-xs text-accent mb-2 tracking-wider uppercase">

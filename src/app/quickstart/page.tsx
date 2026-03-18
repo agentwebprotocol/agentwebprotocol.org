@@ -234,6 +234,113 @@ export default function QuickstartPage() {
 
       <div className="glow-line mb-12" />
 
+      {/* Install the CLI */}
+      <div className="max-w-3xl mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="glow-dot" />
+          <span className="font-mono text-xs text-text-muted tracking-wider uppercase">
+            CLI
+          </span>
+        </div>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">
+          Or use the CLI
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Generate an agent.json from your terminal in seconds:
+        </p>
+
+        <div className="rounded-lg border border-border bg-bg overflow-hidden mb-4">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-bg-elevated">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+            </div>
+            <span className="font-mono text-xs text-text-muted ml-2">
+              terminal
+            </span>
+          </div>
+          <pre className="p-5 text-sm leading-relaxed overflow-x-auto">
+            <code className="font-mono text-text-secondary">npx agent-json init</code>
+          </pre>
+        </div>
+
+        <p className="text-sm text-text-secondary mb-4">
+          Validate an existing file:
+        </p>
+
+        <div className="rounded-lg border border-border bg-bg overflow-hidden mb-4">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-bg-elevated">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+            </div>
+            <span className="font-mono text-xs text-text-muted ml-2">
+              terminal
+            </span>
+          </div>
+          <pre className="p-5 text-sm leading-relaxed overflow-x-auto">
+            <code className="font-mono text-text-secondary">npx agent-json validate agent.json</code>
+          </pre>
+        </div>
+
+        <p className="text-sm text-text-muted">
+          Zero dependencies. Runs instantly via npx.
+        </p>
+      </div>
+
+      <div className="glow-line mb-12" />
+
+      {/* Add to Claude Code */}
+      <div className="max-w-3xl mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="glow-dot" />
+          <span className="font-mono text-xs text-text-muted tracking-wider uppercase">
+            Claude Code
+          </span>
+        </div>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">
+          Native Claude Code support
+        </h2>
+        <p className="text-sm text-text-secondary mb-4">
+          Add AWP tools to Claude Code by adding this to{" "}
+          <code className="font-mono text-accent bg-bg-hover px-1.5 py-0.5 rounded text-xs border border-border">
+            ~/.claude/mcp.json
+          </code>
+          :
+        </p>
+
+        <div className="rounded-lg border border-border bg-bg overflow-hidden mb-4">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-bg-elevated">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+              <div className="w-2.5 h-2.5 rounded-full bg-border-bright" />
+            </div>
+            <span className="font-mono text-xs text-text-muted ml-2">
+              ~/.claude/mcp.json
+            </span>
+          </div>
+          <pre className="p-5 text-sm leading-relaxed overflow-x-auto">
+            <code className="font-mono text-text-secondary">{`{
+  "mcpServers": {
+    "awp": {
+      "command": "npx",
+      "args": ["awp-mcp-server"]
+    }
+  }
+}`}</code>
+          </pre>
+        </div>
+
+        <p className="text-sm text-text-muted">
+          Then ask Claude Code: &quot;Generate an agent.json for my API&quot; — it knows the spec natively.
+        </p>
+      </div>
+
+      <div className="glow-line mb-12" />
+
       {/* Builder */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left: Form */}
