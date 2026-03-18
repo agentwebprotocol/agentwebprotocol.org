@@ -108,7 +108,7 @@ export default function Home() {
           <div className="flex items-center gap-3 mb-8">
             <div className="glow-dot" />
             <span className="font-mono text-xs text-text-muted tracking-wider uppercase">
-              Open Standard — Draft v1.0
+              Open Standard — Draft v0.1
             </span>
           </div>
 
@@ -135,8 +135,14 @@ export default function Home() {
 
           <div className="flex flex-wrap gap-3 mb-16">
             <Link
-              href="/spec"
+              href="/quickstart"
               className="px-5 py-2.5 bg-accent text-white rounded-md font-medium text-sm hover:bg-accent-dim transition-colors"
+            >
+              Get Started
+            </Link>
+            <Link
+              href="/spec"
+              className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
             >
               Read the Spec
             </Link>
@@ -147,14 +153,6 @@ export default function Home() {
               className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
             >
               View on GitHub
-            </a>
-            <a
-              href="https://agent-json.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
-            >
-              agent.json Reference
             </a>
           </div>
 
@@ -268,19 +266,17 @@ export default function Home() {
         </p>
         <div className="flex justify-center gap-3">
           <Link
-            href="/spec"
+            href="/quickstart"
             className="px-5 py-2.5 bg-accent text-white rounded-md font-medium text-sm hover:bg-accent-dim transition-colors"
+          >
+            Generate yours now
+          </Link>
+          <Link
+            href="/spec"
+            className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
           >
             Read the Specification
           </Link>
-          <a
-            href="https://github.com/agentwebprotocol/spec"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
-          >
-            Contribute on GitHub
-          </a>
         </div>
       </section>
     </div>
