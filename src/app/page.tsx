@@ -113,24 +113,28 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
-            <span className="text-text-primary">
-              Declare any web surface
-            </span>
+            <span className="text-text-primary">One manifest.</span>
             <br />
-            <span className="text-accent">agent-ready.</span>
+            <span className="text-accent">Every protocol.</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-text-secondary max-w-2xl leading-relaxed mb-10">
+          <p className="text-lg sm:text-xl text-text-secondary max-w-2xl leading-relaxed mb-6">
             Agent Web Protocol defines{" "}
             <code className="font-mono text-accent bg-bg-hover px-1.5 py-0.5 rounded text-base border border-border">
               agent.json
             </code>{" "}
-            — a machine-readable file that tells AI agents what a website can do,
-            how to authenticate, and what actions are available. What{" "}
-            <code className="font-mono text-text-muted bg-bg-hover px-1.5 py-0.5 rounded text-base border border-border">
+            — a single machine-readable file at the root of any website that
+            tells agents what it does, how to authenticate, and — new in v0.2 —
+            which agent protocols it speaks (MCP, A2A, AP2, x402, and more).
+          </p>
+
+          <p className="text-base text-text-muted max-w-2xl leading-relaxed mb-10">
+            What{" "}
+            <code className="font-mono text-text-muted bg-bg-hover px-1 py-0.5 rounded border border-border">
               robots.txt
             </code>{" "}
-            did for crawlers, agent.json does for agents.
+            did for crawlers, agent.json does for agents. One URL, every
+            capability, no guessing.
           </p>
 
           <div className="flex flex-wrap gap-3 mb-16">
@@ -146,6 +150,14 @@ export default function Home() {
             >
               Read the Spec
             </Link>
+            <a
+              href="https://laclawclaw.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 border border-accent/40 bg-accent-glow text-accent rounded-md font-medium text-sm hover:border-accent transition-colors"
+            >
+              Live example → LaClawClaw
+            </a>
             <a
               href="https://github.com/agentwebprotocol/spec"
               target="_blank"
@@ -218,6 +230,11 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Feature
+            label="New in v0.2"
+            title="Speaks every agent protocol"
+            description="Declare every sibling agent standard — A2A, MCP, ACP, AP2, x402, Skyfire — in one manifest. AWP is the front door; the protocols block tells agents every room they can enter."
+          />
+          <Feature
             label="Discovery"
             title="Well-known endpoint"
             description="Agents discover capabilities via /.well-known/agent.json — no scraping, no guessing, no prompt injection."
@@ -225,33 +242,88 @@ export default function Home() {
           <Feature
             label="Capabilities"
             title="Structured actions"
-            description="Declare what actions are available — search, book, purchase, submit — with typed parameters and descriptions."
+            description="Declare what actions are available — search, book, purchase, submit — with typed parameters and descriptions. Route actions through any declared protocol via the new `via` field."
           />
           <Feature
             label="Auth"
             title="Secure by default"
-            description="Supports OAuth 2.0, API keys, and session-based auth with explicit scope declarations."
+            description="OAuth 2.0, API keys, bearer tokens, and session-based auth with explicit scope declarations per action."
           />
           <Feature
             label="Schema"
             title="Machine-readable"
-            description="JSON schema-based format that's easy for agents to parse and for humans to write and review."
+            description="JSON schema-based format easy for agents to parse and humans to write. Validates against agent-json@0.2.1, zero external deps."
           />
           <Feature
             label="Tooling"
-            title="CLI and editor support"
-            description="Generate with npx agent-json init, validate files, or add native support to Claude Code via the AWP MCP server."
+            title="npx agent-json"
+            description="Generate with `npx agent-json init`, validate local files or remote URLs with `npx agent-json validate <file-or-url>`. Claude Code support via the AWP MCP server."
           />
           <Feature
             label="Open"
             title="Community-driven"
-            description="MIT-licensed, open-source specification. Built in public, governed by the community."
+            description="MIT-licensed, open-source specification. Spec, validator, reference implementation — all developed in public on github.com/agentwebprotocol."
           />
-          <Feature
-            label="Protocols"
-            title="Speaks A2A, MCP, x402"
-            description="v0.2 adds a protocols block — declare every sibling agent standard (A2A, MCP, ACP, AP2, x402) in one manifest. AWP is the front door; everything else is a room."
-          />
+        </div>
+      </section>
+
+      <div className="glow-line" />
+
+      {/* In the wild */}
+      <section className="max-w-5xl mx-auto px-6 py-20">
+        <div className="font-mono text-xs text-text-muted tracking-wider uppercase mb-4">
+          In the wild
+        </div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-4">
+          See AWP v0.2 running.
+        </h2>
+        <p className="text-text-secondary max-w-2xl mb-10 leading-relaxed">
+          <a
+            href="https://laclawclaw.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline"
+          >
+            LaClawClaw
+          </a>{" "}
+          is the first live commerce deployment of AWP v0.2 — an
+          agent-only Shopify store declaring MCP, A2A, and Stripe payment in
+          a single manifest. Fetch it, validate it, shop it.
+        </p>
+
+        <div className="rounded-lg border border-border bg-bg overflow-hidden mb-6">
+          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-bg-elevated">
+            <span className="font-mono text-xs text-text-muted">
+              $ npx -y agent-json@latest validate https://laclawclaw.com/.well-known/agent.json
+            </span>
+          </div>
+          <pre className="p-5 text-sm leading-relaxed overflow-x-auto">
+            <code className="font-mono">
+              <span className="text-text-muted">Validating: </span>
+              <span className="text-text-secondary">https://laclawclaw.com/.well-known/agent.json</span>
+              {"\n  "}
+              <span className="text-green">✓ Valid agent.json — no issues found.</span>
+            </code>
+          </pre>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <a
+            href="https://laclawclaw.com/.well-known/agent.json"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
+          >
+            View the live manifest →
+          </a>
+          <a
+            href="https://laclawclaw.com/how-it-works"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 border border-border text-text-secondary rounded-md font-medium text-sm hover:border-border-bright hover:text-text-primary transition-colors"
+          >
+            How it works
+          </a>
         </div>
       </section>
 
