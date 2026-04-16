@@ -1,6 +1,6 @@
 # Agent Web Protocol (AWP) — Complete Specification
-# Version: 0.1 (Draft)
-# Date: 2026-03-16
+# Version: 0.2 (Draft)
+# Date: 2026-04-16
 # License: MIT
 # Source: https://github.com/agentwebprotocol/spec
 #
@@ -10,22 +10,22 @@
 
 ---
 
-# Agent Web Protocol — Specification v0.1
+# Agent Web Protocol — Specification v0.2
 
-**Status:** Draft RFC
-**Published:** 2026-03-16
-**Authors:** Agent Web Protocol contributors
-**License:** MIT
+**Status:** Draft RFC  
+**Published:** 2026-04-16  
+**Authors:** Agent Web Protocol contributors  
+**License:** MIT  
 
 ---
 
 ## 1. Overview
 
-Agent Web Protocol (AWP) is an open standard for declaring any digital
+Agent Web Protocol (AWP) is an open standard for declaring any digital 
 surface — website, API, document, or authentication flow — as agent-ready.
 
-The core artifact is **agent.json**: a machine-readable file published at
-the root of any web domain, telling AI agents exactly what they can do,
+The core artifact is **agent.json**: a machine-readable file published at 
+the root of any web domain, telling AI agents exactly what they can do, 
 what inputs they need, and how to recover from errors.
 
 ---
@@ -47,8 +47,8 @@ A conforming agent.json file MUST be published at:
 https://{domain}/agent.json
 ```
 
-This follows the same convention as `robots.txt` and `sitemap.xml`.
-Agents SHOULD attempt `GET /agent.json` as the first step when interacting
+This follows the same convention as `robots.txt` and `sitemap.xml`.  
+Agents SHOULD attempt `GET /agent.json` as the first step when interacting 
 with any new domain. The server MUST return `Content-Type: application/json`.
 
 ---
@@ -62,10 +62,10 @@ MAJOR.MINOR
 
 - **Minor versions** add optional fields. Backward compatible.
 - **Major versions** may introduce breaking changes.
-- Agents encountering an unknown major version SHOULD degrade gracefully
+- Agents encountering an unknown major version SHOULD degrade gracefully 
   rather than fail entirely.
 
-Current version: `0.1`
+Current version: `0.2`
 
 ---
 
@@ -73,9 +73,10 @@ Current version: `0.1`
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `awp_version` | string | yes | Spec version (e.g. `"0.1"`) |
+| `awp_version` | string | yes | Spec version (e.g. `"0.2"`) |
 | `domain` | string | yes | Canonical domain this file applies to |
 | `intent` | string | yes | Plain language description of the surface |
+| `protocols` | object | no | Other agent protocols this surface speaks (see §5.5) |
 | `capabilities` | object | no | Feature flags (see §6) |
 | `auth` | object | no | Authentication contract (see §7) |
 | `entities` | object | no | Typed data models (see §8) |
@@ -84,6 +85,94 @@ Current version: `0.1`
 | `dependencies` | object | no | Action prerequisite graph (see §11) |
 | `agent_hints` | object | no | Semantic planning guidance (see §12) |
 | `agent_status` | object | no | Liveness signal (see §13) |
+
+---
+
+## 5.5 Protocols
+
+AWP is the discovery layer — the manifest. Many surfaces also speak one or
+more transport, tool-invocation, or payment protocols. The `protocols` field
+declares them so an agent reading agent.json knows, in a single fetch, every
+standard the surface supports and where to reach it.
+
+```json
+"protocols": {
+  "a2a": {
+    "version": "0.3",
+    "endpoint": "https://agent.example.com/agent/message",
+    "agent_card": "https://agent.example.com/.well-known/agent-card.json"
+  },
+  "mcp": {
+    "version": "2025-06-18",
+    "endpoint": "https://mcp.example.com",
+    "transport": "http"
+  },
+  "x402": {
+    "version": "1.0",
+    "wallet": "0x..."
+  },
+  "payment": {
+    "type": "stripe_link",
+    "agent_op": "checkout.create"
+  }
+}
+```
+
+### Field structure
+
+Each entry is keyed by a protocol identifier (lowercase, hyphenated). The
+value is an object with at least:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `version` | string | yes | Protocol version this surface conforms to |
+| `endpoint` | string (url) | conditional | Where to reach the protocol. Required for transport/tool protocols; optional for payment-only declarations |
+
+Additional protocol-specific fields are allowed (e.g. `agent_card` for A2A,
+`transport` for MCP, `wallet` for x402). Agents MUST ignore unknown
+protocol-specific fields rather than fail.
+
+### Registered protocol identifiers
+
+The following identifiers SHOULD be used when a surface speaks a known
+standard. This list is informative; surfaces MAY declare additional
+custom protocols.
+
+| Identifier | Standard | Layer |
+|------------|----------|-------|
+| `a2a` | Agent-to-Agent (Google) | Transport / messaging |
+| `mcp` | Model Context Protocol (Anthropic) | Tool invocation |
+| `acp` | Agent Communication Protocol (IBM) | Messaging |
+| `ap2` | Agent Payments Protocol (Google) | Payment |
+| `x402` | HTTP 402 + crypto wallet (Coinbase) | Payment |
+| `skyfire` | Skyfire agent payments | Payment / identity |
+| `openapi` | OpenAPI / Swagger | API description |
+| `graphql` | GraphQL | API description |
+| `payment` | Generic payment hand-off (e.g. hosted checkout link) | Payment |
+
+### Linking actions to protocols
+
+Actions MAY include an optional `via` field naming a protocol declared in
+`protocols`. Agents use this to route the action through the correct
+protocol client.
+
+```json
+"actions": [
+  { "id": "list_products", "via": "a2a", "operation": "product.search" },
+  { "id": "checkout",      "via": "a2a", "operation": "checkout.create" }
+]
+```
+
+When an action has `via`, the named protocol MUST appear in `protocols`.
+When an action omits `via`, agents SHOULD assume direct HTTP at the
+declared `endpoint`/`method` (the v0.1 default behavior).
+
+### Why this exists
+
+Other agent protocols define how to talk. AWP defines who to talk to. By
+declaring sibling protocols inside agent.json, a surface gives every
+agent a single bootstrap URL — `/agent.json` — from which all other
+standards become reachable. Agents no longer guess the transport.
 
 ---
 
@@ -151,7 +240,7 @@ Named, typed data models that actions reference in inputs and outputs.
 }
 ```
 
-Entities are referenced in action inputs/outputs as `object[entity_name]`
+Entities are referenced in action inputs/outputs as `object[entity_name]` 
 or `array[entity_name]`.
 
 ### Supported primitive types
@@ -215,8 +304,10 @@ The core of agent.json. Each action represents something an agent can do.
 | `auth_required` | boolean | yes | Whether authentication is required |
 | `inputs` | object | yes | Typed input parameters |
 | `outputs` | object | yes | Typed output fields |
-| `endpoint` | string | yes | API endpoint path |
-| `method` | string | yes | HTTP method: `GET`, `POST`, `PUT`, `DELETE`, `PATCH` |
+| `endpoint` | string | conditional | API endpoint path. Required unless `via` references a protocol that supplies the endpoint |
+| `method` | string | conditional | HTTP method: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`. Required unless `via` is set |
+| `via` | string | no | Identifier of a protocol declared in `protocols` (see §5.5). When set, the action is invoked through that protocol |
+| `operation` | string | no | Protocol-specific operation name when `via` is set (e.g. an A2A method, an MCP tool name) |
 | `rate_limit` | string | no | Rate limit (e.g. `"30/minute"`) |
 | `idempotency` | object | no | Idempotency contract (see below) |
 | `execution_model` | string | no | `sync` (default) or `async` |
@@ -265,7 +356,7 @@ Maps error codes to machine-readable recovery instructions.
 }
 ```
 
-Recovery instructions MUST be actionable by a machine. They SHOULD reference
+Recovery instructions MUST be actionable by a machine. They SHOULD reference 
 specific endpoints or actions where applicable.
 
 ---
@@ -281,7 +372,7 @@ Declares prerequisite relationships between actions.
 }
 ```
 
-Agents MUST execute prerequisite actions and obtain required outputs before
+Agents MUST execute prerequisite actions and obtain required outputs before 
 attempting a dependent action.
 
 ---
@@ -297,14 +388,14 @@ Semantic guidance to improve agent planning. Free-form key-value pairs.
 }
 ```
 
-Agents SHOULD incorporate hints into planning but MUST NOT treat them
+Agents SHOULD incorporate hints into planning but MUST NOT treat them 
 as hard constraints.
 
 ---
 
 ## 13. Agent Status
 
-Optional liveness signal. Allows agents to check operational state
+Optional liveness signal. Allows agents to check operational state 
 before planning actions.
 ```json
 "agent_status": {
@@ -336,7 +427,7 @@ Synthetic files MUST declare their origin:
 "last_verified": "2026-03-15T10:00:00Z"
 ```
 
-Agents SHOULD treat synthetic files as lower-confidence than native files
+Agents SHOULD treat synthetic files as lower-confidence than native files 
 and SHOULD prefer native files when available.
 
 ---
@@ -362,6 +453,15 @@ A conforming agent.json file MAY:
 
 ## 16. Changelog
 
+### v0.2 (2026-04-16)
+- Added `protocols` top-level field (§5.5) — declares sibling agent
+  protocols a surface speaks (A2A, MCP, ACP, AP2, x402, etc.) so agents
+  can route via known transports
+- Added optional `via` and `operation` fields on actions, linking actions
+  to a declared protocol
+- Reference implementation: `laclawclaw.com/.well-known/agent.json`
+- Backward compatible — v0.1 files validate as v0.2
+
 ### v0.1 (2026-03-16)
 - Initial draft
 - Core fields: actions, auth, entities, errors, dependencies, agent_hints
@@ -373,139 +473,5 @@ A conforming agent.json file MAY:
 
 ## Contributing
 
-Changes to this spec follow the RFC process in `/RFC`.
-Open an issue or submit a pull request to propose changes.
+Propose changes via GitHub issues and pull requests.
 Contact: spec@agentwebprotocol.org
-
----
-
-# Examples
-
-## Example 1 — Minimal
-
-```json
-{
-  "awp_version": "0.1",
-  "domain": "example.com",
-  "intent": "Simple website",
-  "actions": [
-    {
-      "id": "search",
-      "description": "Search content",
-      "method": "GET",
-      "endpoint": "/api/search",
-      "auth_required": false
-    }
-  ]
-}
-```
-
-## Example 2 — E-commerce with auth
-
-```json
-{
-  "awp_version": "0.1",
-  "domain": "shop.example.com",
-  "intent": "Online store with product search and checkout",
-  "actions": [
-    {
-      "id": "search_products",
-      "description": "Search the product catalog",
-      "method": "GET",
-      "endpoint": "/api/products/search",
-      "auth_required": false,
-      "inputs": {
-        "query": { "type": "string", "required": true },
-        "category": { "type": "string", "required": false }
-      },
-      "outputs": {
-        "products": "array[product]"
-      }
-    },
-    {
-      "id": "add_to_cart",
-      "description": "Add a product to the shopping cart",
-      "method": "POST",
-      "endpoint": "/api/cart/add",
-      "auth_required": true,
-      "sensitivity": "standard"
-    },
-    {
-      "id": "checkout",
-      "description": "Complete purchase of items in cart",
-      "method": "POST",
-      "endpoint": "/api/checkout",
-      "auth_required": true,
-      "sensitivity": "irreversible",
-      "requires_human_confirmation": true
-    }
-  ],
-  "auth": {
-    "type": "oauth2",
-    "required_for": ["add_to_cart", "checkout"],
-    "token_expiry": "24h"
-  },
-  "errors": {
-    "AUTH_EXPIRED": { "recovery": "call /api/auth/refresh then retry" },
-    "OUT_OF_STOCK": { "recovery": "remove item from cart and suggest alternatives via search_products" }
-  }
-}
-```
-
-## Example 3 — SaaS API with async
-
-```json
-{
-  "awp_version": "0.1",
-  "domain": "api.taskflow.io",
-  "intent": "Project management and task tracking platform",
-  "actions": [
-    {
-      "id": "list_projects",
-      "description": "List all projects for the authenticated user",
-      "method": "GET",
-      "endpoint": "/api/v1/projects",
-      "auth_required": true
-    },
-    {
-      "id": "create_task",
-      "description": "Create a new task in a project",
-      "method": "POST",
-      "endpoint": "/api/v1/tasks",
-      "auth_required": true,
-      "sensitivity": "standard"
-    },
-    {
-      "id": "delete_task",
-      "description": "Permanently delete a task",
-      "method": "DELETE",
-      "endpoint": "/api/v1/tasks/:id",
-      "auth_required": true,
-      "sensitivity": "irreversible",
-      "requires_human_confirmation": true
-    },
-    {
-      "id": "get_analytics",
-      "description": "Generate project analytics report",
-      "method": "POST",
-      "endpoint": "/api/v1/analytics",
-      "auth_required": true,
-      "execution_model": "async",
-      "poll_endpoint": "/api/v1/analytics/status/:job_id"
-    }
-  ],
-  "auth": {
-    "type": "api_key",
-    "required_for": ["list_projects", "create_task", "delete_task", "get_analytics"]
-  },
-  "capabilities": {
-    "batch_actions": true,
-    "pagination": "offset",
-    "idempotency": true
-  },
-  "dependencies": {
-    "create_task": ["list_projects"],
-    "delete_task": ["list_projects"]
-  }
-}
-```

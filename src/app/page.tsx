@@ -20,7 +20,7 @@ function CodeBlock() {
           <span className="text-text-muted">{"  "}</span>
           <span className="text-accent">{'"awp_version"'}</span>
           <span className="text-text-muted">: </span>
-          <span className="text-green">{'"0.1"'}</span>
+          <span className="text-green">{'"0.2"'}</span>
           <span className="text-text-muted">,</span>
           {"\n"}
           <span className="text-text-muted">{"  "}</span>
@@ -108,7 +108,7 @@ export default function Home() {
           <div className="flex items-center gap-3 mb-8">
             <div className="glow-dot" />
             <span className="font-mono text-xs text-text-muted tracking-wider uppercase">
-              Open Standard — Draft v0.1
+              Open Standard — Draft v0.2
             </span>
           </div>
 
@@ -246,6 +246,11 @@ export default function Home() {
             label="Open"
             title="Community-driven"
             description="MIT-licensed, open-source specification. Built in public, governed by the community."
+          />
+          <Feature
+            label="Protocols"
+            title="Speaks A2A, MCP, x402"
+            description="v0.2 adds a protocols block — declare every sibling agent standard (A2A, MCP, ACP, AP2, x402) in one manifest. AWP is the front door; everything else is a room."
           />
         </div>
       </section>
